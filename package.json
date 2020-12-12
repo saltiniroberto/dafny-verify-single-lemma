@@ -2,7 +2,7 @@
 	"name": "dafny-extra-commands",
 	"publisher": "saltiniroberto",
 	"displayName": "Dafny Extra Commands",
-	"description": "",
+	"description": "Commands to run the Dafny verifier on the function/lemma under the cursor",
 	"version": "1.0.0",
 	"engines": {
 		"vscode": "^1.48.0"
