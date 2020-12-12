@@ -1,0 +1,77 @@
+{
+	"name": "dafny-extra-commands",
+	"publisher": "saltiniroberto",
+	"displayName": "Dafny Extra Commands",
+	"description": "",
+	"version": "1.0.0",
+	"engines": {
+		"vscode": "^1.48.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onLanguage:dafny"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "dafny.verify.single.function",
+				"title": "Dafny: Verify Under Cursor"
+			},
+			{
+				"command": "dafny.verify.single.function.trace",
+				"title": "Dafny: Verify Under Cursor with Trace"
+			}			
+		],
+		"menus": {
+			"editor/context": [{
+				"when": "resourceLangId == dafny",
+				"command": "dafny.verify.single.function",
+				"group": "navigation@0"
+		  },
+			{
+				"when": "resourceLangId == dafny",
+				"command": "dafny.verify.single.function.trace",
+				"group": "navigation@0"
+			}]
+		},
+		"configuration": {
+			"title": "Dafny extra commands configuration",
+			"properties": {
+					"dafny-extra-commands.dafny-path": {
+							"type": "string",
+							"default": "",
+							"description": "Absolute path to the _Dafny_ binary directory (which contains `Dafny.exe`)."
+					},
+					"dafny-extra-commands.extra-options": {
+						"type": "string",
+						"default": "",
+						"description": "Absolute path to the _Dafny_ binary directory (which contains `Dafny.exe`)."
+				}					
+			}
+		}				
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.48.0",
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.0.4",
+		"@types/node": "^12.11.7",
+		"eslint": "^7.15.0",
+		"@typescript-eslint/eslint-plugin": "^4.9.0",
+		"@typescript-eslint/parser": "^4.9.0",
+		"glob": "^7.1.6",
+		"mocha": "^8.1.3",
+		"typescript": "^4.1.2",
+		"vscode-test": "^1.4.1"
+	}
+}
