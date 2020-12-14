@@ -1,38 +1,33 @@
-# dafny-extra-commands
+# dafny-single-lemma-verification
 
-This extension provides commands and related editor context-menu items to run the Dafny command-line executable in the terminal to verify the function/lemma under the cursor.
+This extension provides commands and related editor context-menu items to run the Dafny command-line executable in the terminal to verify the word under the cursor.
 
-## Features
+## Commands and Editor Context-Menu Items
 
-The extension adds the "Dafny: Verify Under Cursor" and  "Dafny: Verify Under Cursor with Trace" items to the context-menu of the editor.
-
-The "Dafny: Verify Under Cursor" context-menu item executes the Dafny verifier in the terminal with the parameter `/proc` set to `:*.{identifier_under_the_cursor}`.
-
-The "Dafny: Verify Under Cursor with Trace" context-menu item executes the Dafny verifier as above with the addition of the `/trace` option.
+|Command and Context Menu Item| Description|Key Binding|
+|:----------------------|:-----------|:---|
+|`Dafny SLV: Verify Under Cursor`| Executes the Dafny verifier in the terminal with the parameter `/proc` set to `:*.<word_under_the_cursor}>`|`Ctrl + Shift + v`|
+|`Dafny SLV: Verify Under Cursor with Trace`| As `Dafny SLV: Verify Under Cursor`, except that the `/trace` option is added when running the Dafny command-line executable|`Ctrl + Shift + t`|
+|`Dafny SLV: Repeat Last`| Runs the Dafny command-lin executable with the same options used during the last execution|`Ctrl + Shift + r`|
 
 
 ## Extension Settings
 
+|Setting| Description|
+|:----------------------|:-----------|
+|`dafny-single-lemma-verification.dafny-path`|Path to the folder containing the Dafny executable|
+|`dafny-single-lemma-verification.extra-options`| Command line options to use when running the Dafny executable|
 
-This extension contributes the following settings:
+# Improvements
 
-* `dafny-extra-commands.dafny-path`: Path to the folder containing the Dafny executable
-* `dafny-extra-commands.extra-options`: Command line option to add when running the Dafny executable
-
+- Rather than executing the Dafny command-line executable on the word under the cursor, execute it on the function/method/lemma that the cursor is in the scope of.
 
 ## Release Notes
 
-### 1.0.0
+### 0.8.0
 
 Initial release.
 
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
 
 -----------------------------------------------------------------------------------------------------------
 
