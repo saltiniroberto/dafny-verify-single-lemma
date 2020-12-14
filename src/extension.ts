@@ -8,7 +8,7 @@ const terminal = vscode.window.createTerminal(`Dafny Terminal`);
 
 var last_command:string = ""
 
-function execDafny(trace:boolean)
+function execDafny(onword:boolean, trace:boolean)
 {
 	// The code you place here will be executed every time your command is executed
 
@@ -16,18 +16,13 @@ function execDafny(trace:boolean)
 	let editor = vscode.window.activeTextEditor;
 	if(editor != null)
 	{
-		let cursorPosition = editor.selection.start;
-		let wordRange = editor.document.getWordRangeAtPosition(cursorPosition);
-		let highlight = editor.document.getText(wordRange);
-		// highlight will now contain the currently highlighted word
-
-		let conf = vscode.workspace.getConfiguration('dafny-single-lemma-verification')
+		let conf = vscode.workspace.getConfiguration('dafny-cli')
 
 		let dPath: string | undefined = conf.get("dafny.basePath");
 
 		if(dPath == undefined)
 		{
-			vscode.window.showErrorMessage("Dafny SLV: Dafny path is not set.");
+			vscode.window.showErrorMessage("Dafny CLI: Dafny path is not set.");
 			return;
 		}
 
@@ -35,7 +30,7 @@ function execDafny(trace:boolean)
 
 		if(!fs.existsSync(dafny_path))
 		{
-			vscode.window.showErrorMessage("Dafny SLV: Dafny.exe executable cannot be found at the path indicated in the settings.");
+			vscode.window.showErrorMessage("Dafny CLI: Dafny.exe executable cannot be found at the path indicated in the settings.");
 			return;			
 		}
 
@@ -49,9 +44,27 @@ function execDafny(trace:boolean)
 		var currentlyOpenTabfilePath = vscode.window.activeTextEditor?.document.uri.fsPath as string;
 
 		var rel_path = path.relative(vscode.workspace.rootPath as string, currentlyOpenTabfilePath)
+
+
+		var procOption = ""
+		if(onword)
+		{
+			let cursorPosition = editor.selection.start;
+			let wordRange = editor.document.getWordRangeAtPosition(cursorPosition);
+	
+			if(wordRange == undefined)
+			{
+				vscode.window.showErrorMessage("Dafny CLI: No word under the cursor.");
+				return;
+			}
+	
+			let highlight = editor.document.getText(wordRange);
+
+			procOption = `/proc:'*.${highlight}'`;
+		}
 		
-		last_command = `'${dafny_path}' /compile:0  ${extra_options}  /proc:'*.${highlight}' '${rel_path}'`
-		vscode.commands.executeCommand('setContext', 'dafny-single-lemma-verification:last-command-exists', true);
+		last_command = `'${dafny_path}' /compile:0  ${extra_options} ${procOption} '${rel_path}'`
+		vscode.commands.executeCommand('setContext', 'dafny-cli:last-command-exists', true);
 
 		terminal.sendText(last_command);
 		terminal.show();
@@ -66,21 +79,20 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "dafny-single-lemma-verification" is now active!');
+	console.log('Congratulations, your extension "dafny-cli" is now active!');
 
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	let disposable1 = vscode.commands.registerCommand('dafny-single-lemma-verification', () => {
-		execDafny(false);
+	let disposable1 = vscode.commands.registerCommand('dafny-cli', () => {
+		execDafny(true, false);
 	});
 
-	let disposable2 = vscode.commands.registerCommand('dafny-single-lemma-verification.trace', () => {
-		execDafny(true);
-		
+	let disposable2 = vscode.commands.registerCommand('dafny-cli.trace', () => {
+		execDafny(true, true);
 	});	
 
-	let disposable3 = vscode.commands.registerCommand('dafny-single-lemma-verification.repeat.last', () => {
+	let disposable3 = vscode.commands.registerCommand('dafny-cli.repeat.last', () => {
 		if(last_command != null)
 		{
 			terminal.sendText(last_command);
@@ -90,11 +102,21 @@ export function activate(context: vscode.ExtensionContext) {
 
 	});	
 
+	let disposable4 = vscode.commands.registerCommand('dafny-cli.verify-file', () => {
+		execDafny(false, false);
+	});		
+
+	let disposable5 = vscode.commands.registerCommand('dafny-cli.verify-file-with-trace', () => {
+		execDafny(false, true);
+	});		
+
 	context.subscriptions.push(disposable1);
 	context.subscriptions.push(disposable2);
 	context.subscriptions.push(disposable3);
+	context.subscriptions.push(disposable4);
+	context.subscriptions.push(disposable5);
 
-	vscode.commands.executeCommand('setContext', 'dafny-single-lemma-verification:last-command-exists', false);
+	vscode.commands.executeCommand('setContext', 'dafny-cli:last-command-exists', false);
 }
 
 // this method is called when your extension is deactivated

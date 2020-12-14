@@ -1,9 +1,9 @@
 {
-	"name": "dafny-single-lemma-verification",
+	"name": "dafny-cli",
 	"publisher": "saltiniroberto",
-	"displayName": "Dafny Single Lemma Verification",
-	"description": "Commands to run the Dafny verifier on the function/lemma under the cursor",
-	"version": "0.1.0",
+	"displayName": "Dafny CLI",
+	"description": "Commands to run the Dafny verifier in the terminal window",
+	"version": "0.2.0",
 	"engines": {
 		"vscode": "^1.48.0"
 	},
@@ -17,74 +17,111 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "dafny-single-lemma-verification",
-				"title": "Dafny SLV: Verify Under Cursor"
+				"command": "dafny-cli",
+				"title": "Dafny CLI: Verify Under Cursor"
 			},
 			{
-				"command": "dafny-single-lemma-verification.trace",
-				"title": "Dafny SLV: Verify Under Cursor with Trace"
+				"command": "dafny-cli.trace",
+				"title": "Dafny CLI: Verify Under Cursor with Trace"
 			},		
 			{
-				"command": "dafny-single-lemma-verification.repeat.last",
-				"title": "Dafny SLV: Repeat Last"
-			}				
+				"command": "dafny-cli.repeat.last",
+				"title": "Dafny CLI: Repeat Last"
+			},
+			{
+				"command": "dafny-cli.verify-file",
+				"title": "Dafny CLI: Verify File"
+			},
+			{
+				"command": "dafny-cli.verify-file-with-trace",
+				"title": "Dafny CLI: Verify File With Trace"
+			}															
 		],
 		"menus": {
 			"editor/context": [{
 				"when": "resourceLangId == dafny",
-				"command": "dafny-single-lemma-verification",
+				"command": "dafny-cli",
 				"group": "navigation@0"
 		  	},
 			{
 				"when": "resourceLangId == dafny",
-				"command": "dafny-single-lemma-verification.trace",
+				"command": "dafny-cli.trace",
 				"group": "navigation@0"
 			},
 			{
-				"when": "resourceLangId == dafny && dafny-single-lemma-verification:last-command-exists",
-				"command": "dafny-single-lemma-verification.repeat.last",
+				"when": "resourceLangId == dafny && dafny-cli:last-command-exists",
+				"command": "dafny-cli.repeat.last",
 				"group": "navigation@0"
-			}],
-
+			},
+			{
+				"when": "resourceLangId == dafny",
+				"command": "dafny-cli.verify-file",
+				"group": "navigation@0"
+			},
+			{
+				"when": "resourceLangId == dafny",
+				"command": "dafny-cli.verify-file-with-trace",
+				"group": "navigation@0"
+			}			
+			],
 			"commandPalette": [{
 				"when": "resourceLangId == dafny",
-				"command": "dafny-single-lemma-verification"
+				"command": "dafny-cli"
 		  	},
 			{
 				"when": "resourceLangId == dafny",
-				"command": "dafny-single-lemma-verification.trace"
+				"command": "dafny-cli.trace"
 			},
 			{
-				"when": "resourceLangId == dafny && dafny-single-lemma-verification:last-command-exists",
-				"command": "dafny-single-lemma-verification.repeat.last"
-			}]		
+				"when": "resourceLangId == dafny && dafny-cli:last-command-exists",
+				"command": "dafny-cli.repeat.last"
+			},
+			{
+				"when": "resourceLangId == dafny",
+				"command": "dafny-cli.verify-file"
+			},
+			{
+				"when": "resourceLangId == dafny",
+				"command": "dafny-cli.verify-file-with-trace"
+			}			
+			]		
 		},
 		"keybindings": [
 			{
-			  "command": "dafny-single-lemma-verification",
+			  "command": "dafny-cli",
 			  "key": "ctrl+shift+v",
 			  "when": "resourceLangId == dafny"
 			},
 			{
-				"command": "dafny-single-lemma-verification.trace",
+				"command": "dafny-cli.trace",
 				"key": "ctrl+shift+t",
 				"when": "resourceLangId == dafny"
 			},
 			{
-				"command": "dafny-single-lemma-verification.repeat.last",
+				"command": "dafny-cli.repeat.last",
 				"key": "ctrl+shift+r",
-				"when": "resourceLangId == dafny && dafny-single-lemma-verification:last-command-exists"
-			}						
+				"when": "resourceLangId == dafny && dafny-cli:last-command-exists"
+			},
+			{
+				"when": "resourceLangId == dafny",
+				"key": "ctrl+shift+alt+v",
+				"command": "dafny-cli.verify-file"
+			},
+			{
+				"when": "resourceLangId == dafny",
+				"key": "ctrl+shift+alt+t",
+				"command": "dafny-cli.verify-file-with-trace"
+			}								
 		  ],		
 		"configuration": {
-			"title": "Dafny Single Lemma Verification",
+			"title": "Dafny CLI",
 			"properties": {
-					"dafny-single-lemma-verification.dafny.basePath": {
+					"dafny-cli.dafny.basePath": {
 							"type": "string",
 							"default": "",
 							"markdownDescription": "Absolute path to the directory that contains the executable `Dafny.exe`"
 					},
-					"dafny-single-lemma-verification.dafny.extraOptions": {
+					"dafny-cli.dafny.extraOptions": {
 						"type": "string",
 						"default": "",
 						"markdownDescription": "Options to use when running `Dafny.exe`"
@@ -115,6 +152,6 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/saltiniroberto/vs-code-extension-dafny-single-lemma-verification"
+		"url": "https://github.com/saltiniroberto/vs-code-extension-dafny-cli"
 	}	
 }
