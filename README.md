@@ -1,6 +1,6 @@
 # dafny-single-lemma-verification
 
-This extension provides commands and related editor context-menu items to run the Dafny command-line executable in the terminal to verify the word under the cursor.
+This extension provides commands and related editor context-menu items to execute the Dafny verification of the word under the cursor by running the Dafny command-line executable in the terminal window.
 
 ## Commands and Editor Context-Menu Items
 
