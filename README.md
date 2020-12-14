@@ -24,7 +24,7 @@ This extension provides commands and related editor context-menu items to run th
 
 ## Release Notes
 
-### 0.8.0
+### 0.1.0
 
 Initial release.
 
