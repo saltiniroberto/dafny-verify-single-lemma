@@ -1,4 +1,4 @@
-# dafny-cli
+# Dafny CLI
 
 This extension provides commands and related editor context-menu items to execute Dafny command-line executable in the terminal window.
 
