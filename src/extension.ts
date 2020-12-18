@@ -4,7 +4,8 @@ import * as vscode from 'vscode';
 import * as fs from "fs";   
 import * as path from 'path';
 
-const terminal = vscode.window.createTerminal(`Dafny Terminal`);
+const terminal_name = `Dafny Terminal`;
+var terminal:vscode.Terminal | null = null;
 
 var last_command:string = ""
 
@@ -65,12 +66,32 @@ function execDafny(onword:boolean, trace:boolean)
 		
 		last_command = `'${dafny_path}' /compile:0  ${extra_options} ${procOption} '${rel_path}'`
 		vscode.commands.executeCommand('setContext', 'dafny-cli:last-command-exists', true);
-
-		terminal.sendText(last_command);
-		terminal.show();
-
-		// vscode.window.showInformationMessage();
+		
+		executeInTerminal(last_command);
 	}	
+}
+
+function isDafnyWindowStillDisplayed(): boolean
+{
+	for(var t of vscode.window.terminals)
+	{
+		if(t.name == terminal_name)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+function executeInTerminal(cmd:string)
+{
+	if(terminal == null || !isDafnyWindowStillDisplayed())
+	{
+		terminal = vscode.window.createTerminal(terminal_name);
+	}
+
+	terminal.sendText(last_command);
+	terminal.show();
 }
 
 // this method is called when your extension is activated
@@ -95,8 +116,7 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable3 = vscode.commands.registerCommand('dafny-cli.repeat.last', () => {
 		if(last_command != null)
 		{
-			terminal.sendText(last_command);
-			terminal.show();
+			executeInTerminal(last_command);
 		}
 
 

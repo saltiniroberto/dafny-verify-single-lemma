@@ -26,6 +26,9 @@ This extension provides commands and related editor context-menu items to execut
 
 ## Release Notes
 
+### 0.2.1
+- Fix: Reopen the terminal in the case that it had been manually killed.
+
 ### 0.2.0
 - Add commands for verifying the current file
 - Rename the extension from `dafny-single-lemma-verification` to `dafny-cli` given that the scope of the extension has been broadened with this version
