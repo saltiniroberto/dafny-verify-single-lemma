@@ -19,21 +19,15 @@ function execDafny(onword:boolean, trace:boolean)
 	{
 		let conf = vscode.workspace.getConfiguration('dafny-cli')
 
-		let dPath: string | undefined = conf.get("dafny.basePath");
+		let dafnyCommand: string | undefined = conf.get("dafny.command");
 
-		if(dPath == undefined)
+		if(dafnyCommand == undefined)
 		{
-			vscode.window.showErrorMessage("Dafny CLI: Dafny path is not set.");
+			vscode.window.showErrorMessage("Dafny CLI: Dafny command is not set.");
 			return;
 		}
 
-		let dafny_path = path.join(dPath,"Dafny.exe")
-
-		if(!fs.existsSync(dafny_path))
-		{
-			vscode.window.showErrorMessage("Dafny CLI: Dafny.exe executable cannot be found at the path indicated in the settings.");
-			return;			
-		}
+		let dafnyCommandPrefix = (<string>(conf.get("dafny.commandPrefix") ?? "")).trim()
 
 		let extra_options = conf.get("dafny.extraOptions")
 
@@ -63,8 +57,18 @@ function execDafny(onword:boolean, trace:boolean)
 
 			procOption = `/proc:'*.${highlight}'`;
 		}
+
+		let completeDafnyCommand;
+		if(dafnyCommandPrefix != "")
+		{
+			completeDafnyCommand = `'${dafnyCommandPrefix}' '${dafnyCommand}'`
+		}
+		else 
+		{
+			completeDafnyCommand = `'${dafnyCommand}'`
+		}
 		
-		last_command = `mono '${dafny_path}' /compile:0  ${extra_options} ${procOption} '${rel_path}'`
+		last_command = `${completeDafnyCommand} /compile:0  ${extra_options} ${procOption} '${rel_path}'`
 		vscode.commands.executeCommand('setContext', 'dafny-cli:last-command-exists', true);
 		
 		executeInTerminal(last_command);

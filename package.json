@@ -3,7 +3,7 @@
 	"publisher": "saltiniroberto",
 	"displayName": "Dafny CLI",
 	"description": "Commands to run the Dafny verifier in the terminal window",
-	"version": "0.2.2",
+	"version": "0.3.0",
 	"engines": {
 		"vscode": "^1.48.0"
 	},
@@ -116,15 +116,20 @@
 		"configuration": {
 			"title": "Dafny CLI",
 			"properties": {
-					"dafny-cli.dafny.basePath": {
+					"dafny-cli.dafny.commandPrefix": {
 							"type": "string",
 							"default": "",
-							"markdownDescription": "Absolute path to the directory that contains the executable `Dafny.exe`"
+							"markdownDescription": "Prefix to the command to execute to run Dafny (useful for the environment where the Dafny executable is provided as parameter to mono)"
+					},				
+					"dafny-cli.dafny.command": {
+							"type": "string",
+							"default": "",
+							"markdownDescription": "Command to execute to run Dafny"
 					},
 					"dafny-cli.dafny.extraOptions": {
 						"type": "string",
 						"default": "",
-						"markdownDescription": "Options to use when running `Dafny.exe`"
+						"markdownDescription": "Options to use when running Dafny"
 				}					
 			}
 		}				
