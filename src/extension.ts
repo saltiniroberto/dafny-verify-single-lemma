@@ -64,7 +64,7 @@ function execDafny(onword:boolean, trace:boolean)
 			procOption = `/proc:'*.${highlight}'`;
 		}
 		
-		last_command = `'${dafny_path}' /compile:0  ${extra_options} ${procOption} '${rel_path}'`
+		last_command = `mono '${dafny_path}' /compile:0  ${extra_options} ${procOption} '${rel_path}'`
 		vscode.commands.executeCommand('setContext', 'dafny-cli:last-command-exists', true);
 		
 		executeInTerminal(last_command);

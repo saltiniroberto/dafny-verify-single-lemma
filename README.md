@@ -26,6 +26,9 @@ This extension provides commands and related editor context-menu items to execut
 
 ## Release Notes
 
+### 0.2.2
+- Fix: Prefix "mono" to the Dafny executable
+
 ### 0.2.1
 - Fix: Reopen the terminal in the case that it had been manually killed.
 
