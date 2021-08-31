@@ -27,7 +27,7 @@ This extension provides commands and related editor context-menu items to execut
 ## Release Notes
 
 ### 0.3.0
-- Modify settings so that the command to execute to run Dafny is to be specified rather than the path of Dafny.exe
+- Modify settings to allow specifying the command to use to run Dafny rather than the path to Dafny.exe
 ### 0.2.2
 - Fix: Prefix "mono" to the Dafny executable
 
