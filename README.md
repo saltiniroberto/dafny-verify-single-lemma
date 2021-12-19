@@ -25,7 +25,8 @@ This extension provides commands and related editor context-menu items to execut
 - Rather than executing the Dafny command-line executable on the word under the cursor, execute it on the function/method/lemma that the cursor is in the scope of.
 
 ## Release Notes
-
+### 0.3.1
+- Publish to VSCode Marketplace
 ### 0.3.0
 - Modify settings to allow specifying the command to use to run Dafny rather than the path to Dafny.exe
 ### 0.2.2
