@@ -21,6 +21,7 @@ This extension provides commands and related editor context-menu items to execut
 
 ## Known Issues
 
+- The plugin only works with workspaces created through the `File -> Open Folder ...` command.
 - If either the `Dafny CLI: Verify Under Cursor` or  the `Dafny CLI: Verify Under Cursor with Trace` command is executed on a constructor method, then all the constructor methods in the current file will be verified, not only the one under the cursor.
 
 ## Possible Improvements
@@ -28,6 +29,10 @@ This extension provides commands and related editor context-menu items to execut
 - Rather than executing the Dafny command-line executable on the word under the cursor, execute it on the function/method/lemma that the cursor is in the scope of.
 
 ## Release Notes
+
+### 0.3.3
+
+- Update Known Issues doc.
 
 ### 0.3.2
 
