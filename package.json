@@ -3,7 +3,7 @@
 	"publisher": "saltiniroberto",
 	"displayName": "Dafny CLI",
 	"description": "Commands to run the Dafny verifier in the terminal window",
-	"version": "0.3.1",
+	"version": "0.3.2",
     "author": {
 		"name": "Roberto Saltini",
 		"email": "roberto.saltini@consensys.net"

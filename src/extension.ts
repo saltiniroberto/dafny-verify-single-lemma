@@ -54,6 +54,14 @@ function execDafny(onword:boolean, trace:boolean)
 			}
 	
 			let highlight = editor.document.getText(wordRange);
+			if(highlight == "constructor")
+			{
+				highlight = "__ctor";
+			}
+			else
+			{
+				highlight = highlight.replace(/_/g, "__");
+			}
 
 			procOption = `/proc:'*.${highlight}'`;
 		}
