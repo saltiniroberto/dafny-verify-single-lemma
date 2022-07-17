@@ -3,7 +3,7 @@
 	"publisher": "saltiniroberto",
 	"displayName": "Dafny CLI",
 	"description": "Commands to run the Dafny verifier in the terminal window",
-	"version": "0.3.4",
+	"version": "0.4.0",
     "author": {
 		"name": "Roberto Saltini",
 		"email": "roberto.saltini@consensys.net"
@@ -30,11 +30,11 @@
 		"commands": [
 			{
 				"command": "dafny-cli",
-				"title": "Dafny CLI: Verify Under Cursor"
+				"title": "Dafny CLI: Verify Current Symbol"
 			},
 			{
 				"command": "dafny-cli.trace",
-				"title": "Dafny CLI: Verify Under Cursor with Trace"
+				"title": "Dafny CLI: Verify Current Symbol with Trace"
 			},		
 			{
 				"command": "dafny-cli.repeat.last",

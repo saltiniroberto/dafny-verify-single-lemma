@@ -9,7 +9,7 @@ var terminal:vscode.Terminal | null = null;
 
 var last_command:string = ""
 
-function execDafny(onword:boolean, trace:boolean)
+async function execDafny(onword:boolean, trace:boolean)
 {
 	// The code you place here will be executed every time your command is executed
 
@@ -47,15 +47,44 @@ function execDafny(onword:boolean, trace:boolean)
 		if(onword)
 		{
 			let cursorPosition = editor.selection.start;
-			let wordRange = editor.document.getWordRangeAtPosition(cursorPosition);
+			let currentLine = cursorPosition.line;
+			var activeEditor = vscode.window.activeTextEditor;	
+			let highlight = undefined;
+
+			if (activeEditor !== undefined) {
+				var symbols = await vscode.commands
+					.executeCommand<vscode.DocumentSymbol[]>(
+						'vscode.executeDocumentSymbolProvider', activeEditor.document.uri);
+
+				let symb_and_children : vscode.DocumentSymbol[] | undefined = (symbols?.map(s => s.children == undefined ? [] : s.children).flat() as vscode.DocumentSymbol[] | undefined)?.concat(symbols == undefined ? [] : symbols)
+				symb_and_children?.sort((a, b) => a.range.start.line < b.range.start.line ? -1 : 1);
 	
-			if(wordRange == undefined)
+				if (symb_and_children !== undefined) {
+					for (const symbol of symb_and_children) {
+						if (symbol.range.start.line <= currentLine &&
+							currentLine <= symbol.range.end.line)
+						{
+							highlight = symbol.name;
+						}
+					}
+				}
+;			}			
+	
+			if(highlight == undefined)
 			{
-				vscode.window.showErrorMessage("Dafny CLI: No word under the cursor.");
+				let wordRange = editor.document.getWordRangeAtPosition(cursorPosition)
+				if (wordRange !== undefined)
+				{
+					highlight = editor.document.getText(wordRange);
+				}
+			}			
+
+			if(highlight == undefined)
+			{
+				vscode.window.showErrorMessage("Dafny CLI: Could not find the symbol to verify.");
 				return;
 			}
 	
-			let highlight = editor.document.getText(wordRange);
 			if(highlight == "constructor")
 			{
 				highlight = "__ctor";
@@ -77,7 +106,7 @@ function execDafny(onword:boolean, trace:boolean)
 		{
 			completeDafnyCommand = `'${dafnyCommand}'`
 		}
-			
+						
 		last_command = `${completeDafnyCommand} /compile:0  ${extra_options} ${procOption} '${rel_path}' ${dafnyCommandPostfix}`
 		vscode.commands.executeCommand('setContext', 'dafny-cli:last-command-exists', true);
 		

@@ -6,8 +6,8 @@ This extension provides commands and related editor context-menu items to execut
 
 |Command and Context Menu Item| Description|Key Binding|
 |:----------------------|:-----------|:---|
-|`Dafny CLI: Verify Under Cursor`| Execute the Dafny verifier in the terminal with the parameter `/proc` set to `:*.<word_under_the_cursor}>`|`Ctrl + Shift + v`|
-|`Dafny CLI: Verify Under Cursor with Trace`| As `Dafny CLI: Verify Under Cursor`, except that the `/trace` option is added when running the Dafny command-line executable|`Ctrl + Shift + t`|
+|`Dafny CLI: Verify Current Symbol`| Execute the Dafny verifier in the terminal with the parameter `/proc` set to the innermost function/method/constructor symbol enclosing the current cursor position. If no symbol is detected, then `/proc` is set to the word where the cursor is positioned. |`Ctrl + Shift + v`|
+|`Dafny CLI: Verify Current Symbol with Trace`| As `Dafny CLI: Verify Current Symbol`, except that the `/trace` option is added when running the Dafny command-line executable|`Ctrl + Shift + t`|
 |`Dafny CLI: Verify File`|Execute the Dafny verifier in the terminal window on the current file| `Ctrl + Shift + Alt + v`|
 |`Dafny CLI: Verify File With Trace`|As `Dafny CLI: Verify File`, except that the `/trace` option is added when running the Dafny| `Ctrl + Shift + Alt + t`|
 |`Dafny CLI: Repeat Last`| Runs the Dafny command-lin executable with the same options used during the last execution|`Ctrl + Shift + r`|
@@ -26,11 +26,11 @@ This extension provides commands and related editor context-menu items to execut
 - The plugin only works with workspaces created through the `File -> Open Folder ...` command.
 - If either the `Dafny CLI: Verify Under Cursor` or the `Dafny CLI: Verify Under Cursor with Trace` command is executed on a constructor method, then all the constructor methods in the current file will be verified, not only the one under the cursor.
 
-## Possible Improvements
-
-- Rather than executing the Dafny command-line executable on the word under the cursor, execute it on the function/method/lemma that the cursor is in the scope of.
-
 ## Release Notes
+
+### 0.4.0
+
+- `Verify Under Cursor` command changed to `Verify Current Symbol`. Now the innermost symbol enclosing the current cursor position is preferred over the word where the cursor is positioned when setting the value for the Dafny CLI `/proc` parameter.
 
 ### 0.3.4
 
