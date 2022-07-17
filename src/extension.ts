@@ -29,6 +29,8 @@ function execDafny(onword:boolean, trace:boolean)
 
 		let dafnyCommandPrefix = (<string>(conf.get("dafny.commandPrefix") ?? "")).trim()
 
+		let dafnyCommandPostfix = (<string>(conf.get("dafny.commandPostfix") ?? "")).trim()
+
 		let extra_options = conf.get("dafny.extraOptions")
 
 		if(trace)
@@ -75,8 +77,8 @@ function execDafny(onword:boolean, trace:boolean)
 		{
 			completeDafnyCommand = `'${dafnyCommand}'`
 		}
-		
-		last_command = `${completeDafnyCommand} /compile:0  ${extra_options} ${procOption} '${rel_path}'`
+			
+		last_command = `${completeDafnyCommand} /compile:0  ${extra_options} ${procOption} '${rel_path}' ${dafnyCommandPostfix}`
 		vscode.commands.executeCommand('setContext', 'dafny-cli:last-command-exists', true);
 		
 		executeInTerminal(last_command);

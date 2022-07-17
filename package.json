@@ -3,7 +3,7 @@
 	"publisher": "saltiniroberto",
 	"displayName": "Dafny CLI",
 	"description": "Commands to run the Dafny verifier in the terminal window",
-	"version": "0.3.3",
+	"version": "0.3.4",
     "author": {
 		"name": "Roberto Saltini",
 		"email": "roberto.saltini@consensys.net"
@@ -132,7 +132,12 @@
 							"type": "string",
 							"default": "",
 							"markdownDescription": "Prefix to the command to execute to run Dafny (useful for the environment where the Dafny executable is provided as parameter to mono)"
-					},				
+					},			
+					"dafny-cli.dafny.commandPostfix": {
+						"type": "string",
+						"default": "",
+						"markdownDescription": "Postfix to the command executed to run Dafny"
+					},								
 					"dafny-cli.dafny.command": {
 							"type": "string",
 							"default": "",

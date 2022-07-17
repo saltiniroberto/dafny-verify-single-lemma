@@ -18,17 +18,23 @@ This extension provides commands and related editor context-menu items to execut
 |:----------------------|:-----------|
 |`dafny-cli.dafny-path`|Path to the folder containing the Dafny executable|
 |`dafny-cli.extra-options`| Command line options to use when running the Dafny executable|
+|`dafny-cli.dafny.commandPrefix`|Prefix to the command to execute to run Dafny (useful for the environment where the Dafny executable is provided as parameter to mono)|
+|`dafny-cli.dafny.commandPostfix`|Postfix to the command executed to run Dafny|
 
 ## Known Issues
 
 - The plugin only works with workspaces created through the `File -> Open Folder ...` command.
-- If either the `Dafny CLI: Verify Under Cursor` or  the `Dafny CLI: Verify Under Cursor with Trace` command is executed on a constructor method, then all the constructor methods in the current file will be verified, not only the one under the cursor.
+- If either the `Dafny CLI: Verify Under Cursor` or the `Dafny CLI: Verify Under Cursor with Trace` command is executed on a constructor method, then all the constructor methods in the current file will be verified, not only the one under the cursor.
 
 ## Possible Improvements
 
 - Rather than executing the Dafny command-line executable on the word under the cursor, execute it on the function/method/lemma that the cursor is in the scope of.
 
 ## Release Notes
+
+### 0.3.4
+
+- Add option to specify postfix to add to command execution.
 
 ### 0.3.3
 
