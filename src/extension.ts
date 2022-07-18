@@ -9,6 +9,16 @@ var terminal:vscode.Terminal | null = null;
 
 var last_command:string = ""
 
+function setsAreEqual<T>(a: Set<T>, b: Set<T>) {
+	if (a.size !== b.size) {
+	  return false;
+	}
+  
+	return Array.from(a).every(element => {
+	  return b.has(element);
+	});
+  }
+
 async function execDafny(onword:boolean, trace:boolean)
 {
 	// The code you place here will be executed every time your command is executed
@@ -56,13 +66,24 @@ async function execDafny(onword:boolean, trace:boolean)
 					.executeCommand<vscode.DocumentSymbol[]>(
 						'vscode.executeDocumentSymbolProvider', activeEditor.document.uri);
 
-				let symb_and_children : vscode.DocumentSymbol[] | undefined = (symbols?.map(s => s.children == undefined ? [] : s.children).flat() as vscode.DocumentSymbol[] | undefined)?.concat(symbols == undefined ? [] : symbols)
-				symb_and_children?.sort((a, b) => a.range.start.line < b.range.start.line ? -1 : 1);
-	
+				let symb_and_children : vscode.DocumentSymbol[] | undefined = symbols;
+				let old_symb_and_children
+				let safeStopLoop = 0
+				do
+				{
+					old_symb_and_children = new Set(symb_and_children);
+					symb_and_children = (symb_and_children?.map(s => s.children == undefined ? [] : s.children).flat() as vscode.DocumentSymbol[] | undefined)?.concat(symb_and_children == undefined ? [] : symb_and_children)
+					safeStopLoop++;
+				} 
+				while(!setsAreEqual(new Set(symb_and_children), old_symb_and_children) && safeStopLoop < 50)
+
+				symb_and_children?.sort((a, b) => a.range.start.line < b.range.start.line ? -1 : 1);				
+				
 				if (symb_and_children !== undefined) {
 					for (const symbol of symb_and_children) {
 						if (symbol.range.start.line <= currentLine &&
-							currentLine <= symbol.range.end.line)
+							currentLine <= symbol.range.end.line &&
+						[5, 11].includes(symbol.kind))
 						{
 							highlight = symbol.name;
 						}

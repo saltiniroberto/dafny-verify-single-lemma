@@ -6,7 +6,7 @@ This extension provides commands and related editor context-menu items to execut
 
 |Command and Context Menu Item| Description|Key Binding|
 |:----------------------|:-----------|:---|
-|`Dafny CLI: Verify Current Symbol`| Execute the Dafny verifier in the terminal with the parameter `/proc` set to the innermost function/method/constructor symbol enclosing the current cursor position. If no symbol is detected, then `/proc` is set to the word where the cursor is positioned. |`Ctrl + Shift + v`|
+|`Dafny CLI: Verify Current Symbol`| Execute the Dafny verifier in the terminal with the parameter `/proc` set to the innermost function/method/lemma/constructor symbol enclosing the current cursor position. If no symbol is detected, then `/proc` is set to the word where the cursor is positioned. |`Ctrl + Shift + v`|
 |`Dafny CLI: Verify Current Symbol with Trace`| As `Dafny CLI: Verify Current Symbol`, except that the `/trace` option is added when running the Dafny command-line executable|`Ctrl + Shift + t`|
 |`Dafny CLI: Verify File`|Execute the Dafny verifier in the terminal window on the current file| `Ctrl + Shift + Alt + v`|
 |`Dafny CLI: Verify File With Trace`|As `Dafny CLI: Verify File`, except that the `/trace` option is added when running the Dafny| `Ctrl + Shift + Alt + t`|
@@ -27,6 +27,10 @@ This extension provides commands and related editor context-menu items to execut
 - If either the `Dafny CLI: Verify Under Cursor` or the `Dafny CLI: Verify Under Cursor with Trace` command is executed on a constructor method, then all the constructor methods in the current file will be verified, not only the one under the cursor.
 
 ## Release Notes
+
+### 0.4.1
+
+- Now, when `Verify Current Symbol` checks for the current symbols, it filters out anything that is not a function, method, lemma or constructor. This is needed to allow falling back on using the word at the cursor position when executing `Verify Current Symbol` on refined entities as the Dafny symbol provider does not list refined entities, but only their parent entity.  This improvement also helps prevent running erroneous verification commands.
 
 ### 0.4.0
 
