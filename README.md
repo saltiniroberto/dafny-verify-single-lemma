@@ -28,6 +28,10 @@ This extension provides commands and related editor context-menu items to execut
 
 ## Release Notes
 
+### 0.4.2
+
+- Added dependency on the extension `dafny-lang.ide-vscode` to the manifest file.
+
 ### 0.4.1
 
 - Now, when `Verify Current Symbol` checks for the current symbols, it filters out anything that is not a function, method, lemma or constructor. This is needed to allow falling back on using the word at the cursor position when executing `Verify Current Symbol` on refined entities as the Dafny symbol provider does not list refined entities, but only their parent entity.  This improvement also helps prevent running erroneous verification commands.

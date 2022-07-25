@@ -1,9 +1,8 @@
 {
 	"name": "dafny-cli",
-	"publisher": "saltiniroberto",
 	"displayName": "Dafny CLI",
 	"description": "Commands to run the Dafny verifier in the terminal window",
-	"version": "0.4.1",
+	"version": "0.4.2",
     "author": {
 		"name": "Roberto Saltini",
 		"email": "roberto.saltini@consensys.net"
@@ -171,5 +170,8 @@
 		"mocha": "^8.1.3",
 		"typescript": "^4.1.2",
 		"vscode-test": "^1.4.1"
-	}
+	},
+	"extensionDependencies": [
+		"dafny-lang.ide-vscode"
+	]
 }
