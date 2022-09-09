@@ -1,5 +1,9 @@
 # Release Notes
 
+## 0.5.1
+
+- Added handling of the verification selection pattern required for Dafny versions > 3.7.1 preserving back-compatibility via configuration option.
+
 ## 0.4.3
 
 - Moved Release Notes to the Changelog file.

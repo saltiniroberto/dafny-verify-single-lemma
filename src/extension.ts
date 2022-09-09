@@ -41,6 +41,8 @@ async function execDafny(onword:boolean, trace:boolean)
 
 		let dafnyCommandPostfix = (<string>(conf.get("dafny.commandPostfix") ?? "")).trim()
 
+		let isVersionHigherThan3_7_1 = (<boolean>conf.get("dafny.version_above_3_7_1"))
+
 		let extra_options = conf.get("dafny.extraOptions")
 
 		if(trace)
@@ -108,14 +110,18 @@ async function execDafny(onword:boolean, trace:boolean)
 	
 			if(highlight == "constructor")
 			{
-				highlight = "__ctor";
+				highlight = "_ctor";
+			}
+
+			if(isVersionHigherThan3_7_1)
+			{
+				procOption = `/proc:'${highlight} *' /proc:'*.${highlight} *'`;
 			}
 			else
 			{
 				highlight = highlight.replace(/_/g, "__");
+				procOption = `/proc:'*.${highlight}'`;
 			}
-
-			procOption = `/proc:'*.${highlight}'`;
 		}
 
 		let completeDafnyCommand;

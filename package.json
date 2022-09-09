@@ -2,7 +2,7 @@
 	"name": "dafny-cli",
 	"displayName": "Dafny CLI",
 	"description": "Commands to run the Dafny verifier in the terminal window",
-	"version": "0.4.3",
+	"version": "0.5.1",
     "author": {
 		"name": "Roberto Saltini",
 		"email": "roberto.saltini@consensys.net"
@@ -146,7 +146,12 @@
 						"type": "string",
 						"default": "",
 						"markdownDescription": "Options to use when running Dafny"
-				}					
+					},
+					"dafny-cli.dafny.version_above_3_7_1": {
+						"type": "boolean",
+						"default": "",
+						"markdownDescription": "Is the version of Dafny used higher than 3.7.1?"
+				}										
 			}
 		}				
 	},

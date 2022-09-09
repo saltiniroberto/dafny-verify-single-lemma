@@ -20,6 +20,7 @@ This extension provides commands and related editor context-menu items to execut
 |`dafny-cli.extra-options`| Command line options to use when running the Dafny executable|
 |`dafny-cli.dafny.commandPrefix`|Prefix to the command to execute to run Dafny (useful for the environment where the Dafny executable is provided as parameter to mono)|
 |`dafny-cli.dafny.commandPostfix`|Postfix to the command executed to run Dafny|
+|`dafny-cli.dafny.version_above_3_7_1`|To be checked if the version of Dafny used is higher than 3.7.1|
 
 ## Known Issues
 
